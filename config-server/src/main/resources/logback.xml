@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<appender name="JSON" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+        <file>${LOG_FILE}.json</file>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeCallerInfo>true</includeCallerInfo>
+            <customFields>{"appname":"${pom.artifactId}","version":"${pom.version}"}</customFields>
+        </encoder>
+    </appender>
+<!--     <appender name="TCP" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+      <destination>logstash:5044</destination>
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+  	</appender>
+ -->	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="JSON" />
+		<!--appender-ref ref="TCP" /-->
+	</root>
+	<logger name="org.springframework" level="INFO"/>
+</configuration>

@@ -1,0 +1,11 @@
+---
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/charan556/ConfigData
+server:
+  port: 8001
+logging:
+  file: /tmp/server.log 
